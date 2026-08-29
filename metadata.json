@@ -1,0 +1,6 @@
+{
+  "name": "Gemini Reflection & Journaling",
+  "description": "User-authenticated multi-turn journaling and reflection workspace powered by Gemini 3.6 Flash and Cloud Firestore with strict per-user data isolation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,27 @@
+{
+  "entities": {
+    "User": {
+      "collection": "users",
+      "fields": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" }
+      }
+    },
+    "Entry": {
+      "collection": "users/{userId}/entries",
+      "fields": {
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "mode": { "type": "string" },
+        "messages": { "type": "array" },
+        "tags": { "type": "array" },
+        "keyTakeaways": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      }
+    }
+  }
+}

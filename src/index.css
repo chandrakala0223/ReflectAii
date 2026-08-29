@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-midnight: #0B1020;
+    --surface-1: #11182B;
+    --surface-2: #151D33;
+    --surface-3: #1B2440;
+    --border-subtle: #222D4F;
+    --accent-lavender: #8B7CFF;
+    --accent-cyan: #5ED6E8;
+    --text-primary: #F5F7FF;
+    --text-secondary: #AEB7D0;
+    --text-muted: #7F8AA8;
+  }
+
+  body {
+    background-color: #0B1020;
+    color: #F5F7FF;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+
+  .font-serif {
+    font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
+  }
+}
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 16, 32, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 124, 255, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 124, 255, 0.4);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glassmorphic card styling utilities */
+.glass-panel {
+  background: rgba(21, 29, 51, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 124, 255, 0.12);
+}
+
+.glass-panel-elevated {
+  background: rgba(27, 36, 64, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 124, 255, 0.2);
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.5), 0 0 20px -4px rgba(139, 124, 255, 0.12);
+}
+
+.glass-input {
+  background: rgba(17, 24, 43, 0.75);
+  border: 1px solid rgba(139, 124, 255, 0.16);
+  color: #F5F7FF;
+}
+
+.glass-input:focus {
+  border-color: rgba(139, 124, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(139, 124, 255, 0.18);
+  outline: none;
+}
+
+/* Ambient glow accents */
+.ambient-glow-lavender {
+  background: radial-gradient(circle, rgba(139, 124, 255, 0.15) 0%, rgba(11, 16, 32, 0) 70%);
+}
+
+.ambient-glow-cyan {
+  background: radial-gradient(circle, rgba(94, 214, 232, 0.12) 0%, rgba(11, 16, 32, 0) 70%);
+}
