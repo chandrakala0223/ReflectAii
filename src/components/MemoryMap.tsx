@@ -27,6 +27,7 @@ import {
 import type { JournalEntry, JournalLocation } from "../types";
 import { LifeMomentCard } from "./LifeMomentCard";
 import { InteractiveTileMap } from "./InteractiveTileMap";
+import { useMapsConfig } from "../config/mapsConfig";
 
 interface MemoryMapProps {
   userId: string;
@@ -141,17 +142,13 @@ export function MemoryMap({
     { id: "difficult", label: "🌧️ Difficult" },
   ];
 
-  // API Key handling
-  const rawKey =
-    (typeof window !== "undefined" && (window as any).VITE_GOOGLE_MAPS_API_KEY) ||
-    ((import.meta as any).env?.VITE_GOOGLE_MAPS_API_KEY as string) ||
-    "";
+  // Centralized Google Maps configuration & validation hook
+  const mapsConfig = useMapsConfig();
   
   const isKeyValid =
-    Boolean(rawKey) &&
-    rawKey.trim().length > 10 &&
-    !rawKey.includes("MY_") &&
-    !rawKey.includes("PLACEHOLDER") &&
+    mapsConfig.isValid &&
+    Boolean(mapsConfig.apiKey) &&
+    mapsConfig.apiKey.trim().length > 10 &&
     !gmpLoadFailed;
 
   // Transform filtered entries to marker items
@@ -362,9 +359,23 @@ export function MemoryMap({
 
           {/* Right Column: Interactive Map + Active Moment Overlay (8 cols) */}
           <div className="lg:col-span-8 bg-[#151D33] border border-[#8B7CFF]/20 rounded-3xl shadow-xl overflow-hidden flex flex-col h-[640px] relative backdrop-blur-md">
+            {/* Map Engine Status Indicator */}
+            <div className="absolute top-3 right-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#11182B]/90 border border-[#8B7CFF]/25 text-[11px] backdrop-blur-md shadow-md text-[#AEB7D0]">
+              <div
+                className={`w-2 h-2 rounded-full ${
+                  isKeyValid ? "bg-emerald-400 animate-pulse" : "bg-amber-400"
+                }`}
+              />
+              <span className="font-medium">
+                {isKeyValid
+                  ? "Google Maps Active"
+                  : "Interactive Dark Map (Active)"}
+              </span>
+            </div>
+
             {isKeyValid ? (
               <APIProvider
-                apiKey={rawKey}
+                apiKey={mapsConfig.apiKey}
                 onError={() => setGmpLoadFailed(true)}
               >
                 <Map

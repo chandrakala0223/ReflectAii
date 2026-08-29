@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = Number(process.env.PORT) || 8080;
+const PORT = Number(process.env.PORT) || 3000;
 
 // 1. Top-Level Request Deserialization (Ordering Guarantee)
 app.use(express.json({ limit: "10mb" }));
@@ -447,6 +447,24 @@ const CURATED_LANDMARKS = [
   { name: "London Eye", formattedAddress: "Riverside Building, County Hall, London SE1 7PB, UK", lat: 51.5033, lng: -0.1195, locality: "London", country: "United Kingdom" },
   { name: "Times Square", formattedAddress: "Manhattan, NY 10036, USA", lat: 40.7580, lng: -73.9855, locality: "New York", country: "USA" },
 ];
+
+// Public runtime configuration for client-side Maps SDK
+app.get("/api/config/maps", (_req: Request, res: Response): void => {
+  const apiKey = (process.env.GOOGLE_MAPS_API_KEY || process.env.VITE_GOOGLE_MAPS_API_KEY || "").trim();
+  const isConfigured = Boolean(
+    apiKey &&
+    apiKey.length > 10 &&
+    !apiKey.includes("YOUR_") &&
+    !apiKey.includes("PLACEHOLDER")
+  );
+
+  res.json({
+    apiKey: isConfigured ? apiKey : "",
+    isConfigured,
+    hasServerKey: Boolean(process.env.GOOGLE_MAPS_API_KEY),
+    hasViteKey: Boolean(process.env.VITE_GOOGLE_MAPS_API_KEY),
+  });
+});
 
 // Search Places endpoint (Places API New / Geocoding with fallback)
 app.post("/api/places/search", async (req: Request, res: Response): Promise<void> => {
